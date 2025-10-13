@@ -1,7 +1,6 @@
 <x-alayout>
     <x-slot:heading>
-        Welcome Page
+        Contact Page
     </x-slot:heading>
-    <h1>Hello from welcome page</h1>
-
+    <h1>Contact: {{$message}}</h1>
 </x-alayout>
