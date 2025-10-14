@@ -1,25 +1,27 @@
 <?php
 
+use App\Http\Controllers\contact;
 use App\Http\Controllers\ProfileController;
+use App\Models\Item;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/items', function () {
-    return view('items');
+    $items= Item::with('tags')->paginate(10);
+    return view('items',
+        ['items' => Item::all()
+        ]);
 })->name('items');
 
-Route::get('/items{id}', function (int $id) {
-    return view('item');
+Route::get('/items/{id}', function (int $id) {
+    $item = Item::find($id);
+    return view('item', ['item' => $item]);
 });
 
-Route::get('/test/{id}', function (int $id) {
-    return view('test', compact(var_name: 'id'));
-});
-
-Route::get('/contact', [\App\Http\Controllers\contact::class, 'show'])->name('contact');
+Route::get('/contact', [contact::class, 'show'])->name('contact');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

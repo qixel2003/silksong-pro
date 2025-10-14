@@ -5,7 +5,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="h-full">
@@ -20,12 +23,12 @@
                     </div>
                     <div class="hidden md:block">
                         <div class="ml-10 flex items-baseline space-x-4">
-                            <x-anav-link href="/" :active="request()->is('/')">Welcome</x-anav-link>
-                            <x-anav-link href="/items" :active="request()->is('items')">Items</x-anav-link>
-                            <x-anav-link href="/build" :active="request()->is('build')">Build</x-anav-link>
-                            <x-anav-link href="/about" :active="request()->is('about')">About</x-anav-link>
-                            <x-anav-link href="/login" :active="request()->is('login')">Login</x-anav-link>
-                            <x-anav-link href="/register" :active="request()->is('register')">Register</x-anav-link>
+                            <x-anav-link href="{{route('welcome')}}" :active="request()->is('/')">Welcome</x-anav-link>
+                            <x-anav-link href="{{route('items')}}" :active="request()->is('items')">Items</x-anav-link>
+{{--                            <x-anav-link href="{{route('build')}}" :active="request()->is('build')">Build</x-anav-link>--}}
+{{--                            <x-anav-link href="{{route('about')}}" :active="request()->is('about')">About</x-anav-link>--}}
+{{--                            <x-anav-link href="{{route('login')}}" :active="request()->is('login')">Login</x-anav-link>--}}
+{{--                            <x-anav-link href="{{route('register')}}" :active="request()->is('register')">Register</x-anav-link>--}}
                         </div>
                     </div>
                 </div>
@@ -58,12 +61,12 @@
 
         <el-disclosure id="mobile-menu" hidden class="block md:hidden">
             <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
-                <x-anav-link href="/" :active="request()->is('/')">Welcome</x-anav-link>
-                <x-anav-link href="/items" :active="request()->is('items')">Items</x-anav-link>
-                <x-anav-link href="/build" :active="request()->is('build')">Build</x-anav-link>
-                <x-anav-link href="/about" :active="request()->is('about')">About</x-anav-link>
-                <x-anav-link href="/login" :active="request()->is('login')">Login</x-anav-link>
-                <x-anav-link href="/register" :active="request()->is('register')">Register</x-anav-link>
+                <x-anav-link href="{{route('welcome')}}" :active="request()->is('/')">Welcome</x-anav-link>
+                <x-anav-link href="{{route('items')}}" :active="request()->is('items')">Items</x-anav-link>
+{{--                <x-anav-link href="{{route('build')}}" :active="request()->is('build')">Build</x-anav-link>--}}
+{{--                <x-anav-link href="{{route('about')}}" :active="request()->is('about')">About</x-anav-link>--}}
+{{--                <x-anav-link href="{{route('login')}}" :active="request()->is('login')">Login</x-anav-link>--}}
+{{--                <x-anav-link href="{{route('register')}}" :active="request()->is('register')">Register</x-anav-link>--}}
             </div>
             <div class="border-t border-white/10 pt-4 pb-3">
                 <div class="flex items-center px-5">

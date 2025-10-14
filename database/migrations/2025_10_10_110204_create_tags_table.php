@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Item;
+use App\Models\Tag;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,12 +13,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
             $table->id();
-//            $table->unsignedBigInteger('tag_id');
-            $table->foreignIdFor(Item::class)->nullable();
             $table->string('name');
-            $table->text('description');
+            $table->timestamps();
+        });
+
+        Schema::create('item_tag', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(Tag::class)->nullable()->constrained()->nullOnDelete();
+            $table->foreignIdFor(Item::class);
             $table->timestamps();
         });
     }
@@ -27,6 +32,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('tags');
+        Schema::dropIfExists('item_tag');
     }
 };
