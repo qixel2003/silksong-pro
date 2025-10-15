@@ -10,3 +10,7 @@
 14/10/2025
 -tag table/model
 -show item tags in item index
+
+15/10/2025
+-item crud
+-item route update

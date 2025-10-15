@@ -24,7 +24,8 @@
                     <div class="hidden md:block">
                         <div class="ml-10 flex items-baseline space-x-4">
                             <x-anav-link href="{{route('welcome')}}" :active="request()->is('/')">Welcome</x-anav-link>
-                            <x-anav-link href="{{route('items')}}" :active="request()->is('items')">Items</x-anav-link>
+                            <x-anav-link href="{{route('items.index')}}" :active="request()->is('items')">Items</x-anav-link>
+                            <x-anav-link href="{{route('items.create')}}" :active="request()->is('items.index')">Create Items</x-anav-link>
 {{--                            <x-anav-link href="{{route('build')}}" :active="request()->is('build')">Build</x-anav-link>--}}
 {{--                            <x-anav-link href="{{route('about')}}" :active="request()->is('about')">About</x-anav-link>--}}
 {{--                            <x-anav-link href="{{route('login')}}" :active="request()->is('login')">Login</x-anav-link>--}}
@@ -62,8 +63,9 @@
         <el-disclosure id="mobile-menu" hidden class="block md:hidden">
             <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
                 <x-anav-link href="{{route('welcome')}}" :active="request()->is('/')">Welcome</x-anav-link>
-                <x-anav-link href="{{route('items')}}" :active="request()->is('items')">Items</x-anav-link>
-{{--                <x-anav-link href="{{route('build')}}" :active="request()->is('build')">Build</x-anav-link>--}}
+                <x-anav-link href="{{route('items.index')}}" :active="request()->is('items')">Items</x-anav-link>
+                <x-anav-link href="{{route('items.create')}}" :active="request()->is('items.index')">Create Items</x-anav-link>
+                {{--                <x-anav-link href="{{route('build')}}" :active="request()->is('build')">Build</x-anav-link>--}}
 {{--                <x-anav-link href="{{route('about')}}" :active="request()->is('about')">About</x-anav-link>--}}
 {{--                <x-anav-link href="{{route('login')}}" :active="request()->is('login')">Login</x-anav-link>--}}
 {{--                <x-anav-link href="{{route('register')}}" :active="request()->is('register')">Register</x-anav-link>--}}
