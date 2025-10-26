@@ -12,6 +12,7 @@ Route::get('/', function () {
 
 Route::resource('items', ItemController::class);
 
+
 Route::get('/contact', [contact::class, 'show'])->name('contact');
 
 Route::get('/dashboard', function () {

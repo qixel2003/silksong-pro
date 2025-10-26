@@ -14,3 +14,8 @@
 15/10/2025
 -item crud
 -item route update
+
+26/20/2025
+-integrate ERD:
+    -adding review, loginlog table
+    -adding role and status to user table

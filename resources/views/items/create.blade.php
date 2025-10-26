@@ -11,43 +11,35 @@
                 <p class="mt-1 text-sm/6 text-white">We just need a handful of details from you.</p>
 
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div class="sm:col-span-4">
-                        <label for="name" class="block text-sm/6 font-medium text-white">Name</label>
+                    <x-form-field>
+                        <x-form-label for="name" >Name</x-form-label>
                         <div class="mt-2">
-                            <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                <input type="text" name="name" id="name" autocomplete="name" class="block flex-1 border-0 bg-transparent py-1.5 px-3 pl-1 text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm/6" placeholder="my wood" value="{{old('name')}}" required>
-                            </div>
-                            @error('name')
-                            <p class="text-xs text-red-500 font-semibold mt-1">{{$message}}</p>
-                            @enderror
+                            <x-form-input-label name="name" id="name" autocomplete="name" placeholder="wood sword" value="{{old('name')}}" required></x-form-input-label>
+                            <x-form-error name="name" />
                         </div>
-                    </div>
+                    </x-form-field>
                 </div>
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <label for="tag_id" class="block text-sm/6 font-medium text-white">Tags</label>
-                    <div class="mt-2">
-                        <select id="tag_id" name="tag_id" class="block w-full rounded-md border-0 bg-transparent py-1.5 px-3 text-whitering-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-insetfocus:ring-indigo-600 sm:text-sm/6">
-                            <option value="">-- Select a tag --</option>
+                    <x-form-label for="tag_id" >Tags</x-form-label>
+                    <x-form-field>
+                        <select id="tag_id" name="tag_id" class="block w-full rounded-md border-0 bg-transparent py-1.5 px-3 text-white ring-1 ring-inset ring-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                            <option class="text-black" value="">-- Select a tag --</option>
                             @foreach ($tags as $tag)
-                                <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                <option class="text-black" value="{{ $tag->id }}">{{ $tag->name }}</option>
                             @endforeach
                         </select>
-                        @error('tag_id')
-                        <p class="text-xs text-red-500 font-semibold mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+                        <x-form-error name="tag_id" />
+                    </x-form-field>
 
                 </div>
                     <div>
                         <div class="col-span-full">
-                            <label for="description" class="block text-sm/6 font-medium text-white">About</label>
-                            <div class="mt-2">
-                                <textarea id="description" name="description" rows="3" value="{{old('description')}}" class="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" required></textarea>
-                            </div>
-                            @error('description')
-                            <p class="text-xs text-red-500 font-semibold mt-1">{{$message}}</p>
-                            @enderror
+                            <x-form-label for="description" >Description</x-form-label>
                             <p class="mt-3 text-sm/6 text-white">Write a item description.</p>
+                            <x-form-field>
+                                <textarea id="description" name="description" rows="3" value="{{old('description')}}" class="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" required></textarea>
+                            </x-form-field>
+                            <x-form-error name="description" />
                         </div>
                     </div>
                 </div>

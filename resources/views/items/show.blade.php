@@ -8,9 +8,11 @@
         Item description: {{ $item['description'] }}
     </p>
 
+{{--    @can()--}}
     <p class="mt-6">
         <x-button href="{{ route('items.edit', $item->id) }}">
             Edit
         </x-button>
     </p>
+{{--    @endcan--}}
 </x-alayout>

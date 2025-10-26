@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -22,6 +23,7 @@ class ItemController extends Controller
 
     public function create()
     {
+
         $tags = Tag::all();
         return view('items.create', [
             'tags' => $tags
