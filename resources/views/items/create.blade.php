@@ -22,12 +22,15 @@
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <x-form-label for="tag_id" >Tags</x-form-label>
                     <x-form-field>
-                        <select id="tag_id" name="tag_id" class="block w-full rounded-md border-0 bg-transparent py-1.5 px-3 text-white ring-1 ring-inset ring-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
-                            <option class="text-black" value="">-- Select a tag --</option>
                             @foreach ($tags as $tag)
-                                <option class="text-black" value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                <option class="text-black" value="{{ $tag->id }}">{{ $tag->name }} </option>
                             @endforeach
-                        </select>
+                            <select name="tag_id[]" id="tag_id" multiple class="block w-full rounded-md border-0 bg-transparent py-1.5 px-3 text-white ring-1 ring-inset ring-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                                @foreach ($tags as $tag)
+                                    <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                @endforeach
+                            </select>
+
                         <x-form-error name="tag_id" />
                     </x-form-field>
 

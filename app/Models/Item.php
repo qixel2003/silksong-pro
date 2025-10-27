@@ -12,7 +12,8 @@ class Item extends Model
 
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'tag_id'
     ];
 
 //    protected $guarded = [];

@@ -41,15 +41,25 @@ class ItemController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'min:3'],
             'description' => ['required', 'string'],
-            'tag_id' => ['exists:tags,id'],
+            'tag_id' => ['array'], // now multiple tags allowed
+            'tag_id.*' => ['exists:tags,id'],
         ]);
 
-        Item::create($validated);
+        $item = Item::create([
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+        ]);
+
+        // attach tags to the pivot table
+        if (!empty($validated['tag_id'])) {
+            $item->tags()->attach($validated['tag_id']);
+        }
 
         return redirect()
             ->route('items.index')
             ->with('success', 'Item created successfully!');
     }
+
 
 
 
