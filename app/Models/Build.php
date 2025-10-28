@@ -18,13 +18,13 @@ class Build extends Model
         'status' => 'boolean',
     ];
 
-
-    public function items() {
-        return $this->belongsToMany(Item::class, 'build_item');
+    public function items()
+    {
+        return $this->belongsToMany(Item::class, 'build_item', 'build_id', 'item_id');
     }
 
-    public function users() {
-        return $this->belongsToMany(User::class, 'build_user');
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'build_user', 'build_id', 'user_id');
     }
-
 }

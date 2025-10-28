@@ -24,12 +24,13 @@
     -adding review, loginlog table
 
 28/10/2025
+-build crud
+
 -role autorisation
 
 
 
 TODO:
--build crud
 -filter function
 -search function !MOET OOK KUNNEN COMBINEREN!
 -role autorisation

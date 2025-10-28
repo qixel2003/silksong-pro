@@ -14,10 +14,10 @@
 
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <x-form-field>
-                        <x-form-label for="titel">Title</x-form-label>
+                        <x-form-label for="title">Title</x-form-label>
                         <div class="mt-2">
-                            <x-form-input-label name="titel" id="titel" autocomplete="off" placeholder="Example: Fire Mage Build" value="{{ old('titel', $build->titel) }}" required />
-                            <x-form-error name="titel" />
+                            <x-form-input-label name="title" id="title" autocomplete="off" placeholder="Example: Fire Mage Build" value="{{ old('title', $build->titel) }}" required />
+                            <x-form-error name="title" />
                         </div>
                     </x-form-field>
                 </div>

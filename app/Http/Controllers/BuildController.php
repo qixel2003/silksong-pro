@@ -41,7 +41,7 @@ class BuildController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'titel' => ['required', 'string', 'max:100'],
+            'title' => ['required', 'string', 'max:100'],
             'content' => ['required', 'string'],
             'item_id' => ['array'], // multiple items allowed
             'item_id.*' => ['exists:items,id'],
@@ -50,7 +50,7 @@ class BuildController extends Controller
 
         // Create build
         $build = Build::create([
-            'titel' => $validated['titel'],
+            'title' => $validated['title'],
             'content' => $validated['content'],
             'status' => $validated['status'] ?? true,
         ]);
@@ -101,7 +101,7 @@ class BuildController extends Controller
     public function update(Request $request, Build $build)
     {
         $validated = $request->validate([
-            'titel' => ['required', 'string', 'max:100'],
+            'title' => ['required', 'string', 'max:100'],
             'content' => ['required', 'string'],
             'item_id' => ['array'],
             'item_id.*' => ['exists:items,id'],
@@ -109,7 +109,7 @@ class BuildController extends Controller
         ]);
 
         $build->update([
-            'titel' => $validated['titel'],
+            'title' => $validated['title'],
             'content' => $validated['content'],
             'status' => $validated['status'] ?? $build->status,
         ]);

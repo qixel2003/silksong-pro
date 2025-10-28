@@ -9,7 +9,7 @@
 
     {{--    @can()--}}
     <p class="mt-6">
-        <x-button href="{{ route('build.edit', $build->id) }}">
+        <x-button href="{{ route('builds.edit', $build->id) }}">
             Edit
         </x-button>
     </p>
