@@ -15,20 +15,21 @@
 -item crud
 -item route update
 
-26/20/2025 
+26/10/2025 
 -adding role and status to user table
 -form layout update
 
-27/20/2025
+27/10/2025
 -integrate ERD:
     -adding review, loginlog table
+
+28/10/2025
 -role autorisation
 
 
 
 TODO:
--ERD integrate
--post crud
+-build crud
 -filter function
 -search function !MOET OOK KUNNEN COMBINEREN!
 -role autorisation

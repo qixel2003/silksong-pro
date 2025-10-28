@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BuildController;
 use App\Http\Controllers\contact;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
@@ -11,6 +12,9 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::resource('items', ItemController::class);
+
+Route::resource('builds', BuildController::class);
+
 
 
 Route::get('/contact', [contact::class, 'show'])->name('contact');

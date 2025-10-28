@@ -11,23 +11,25 @@
                 <h2 class="text-base/7 font-semibold text-white">Edit Item</h2>
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div class="sm:col-span-4">
-                        <x-form-label for="name" >Name</x-form-label>
+                        <x-form-label for="name">Name</x-form-label>
                         <div class="mt-2">
-                            <x-form-input-label name="name" id="name" autocomplete="name" placeholder="wood sword" value="{{$item->name}}" required></x-form-input-label>
-                            <x-form-error name="name" />
+                            <x-form-input-label name="name" id="name" autocomplete="name" placeholder="wood sword"
+                                                value="{{$item->name}}" required></x-form-input-label>
+                            <x-form-error name="name"/>
                         </div>
                     </div>
                 </div>
                 <div>
                     <div>
                         <div class="col-span-full">
-                            <x-form-label for="description" >Description</x-form-label>
+                            <x-form-label for="description">Description</x-form-label>
                             <div class="mt-2">
                                 <textarea id="description" name="description" rows="3"
                                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300  focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
-                                          placeholder="{{$item->description}}" value="{{$item->description}}" required></textarea>
+                                          placeholder="{{$item->description}}" value="{{$item->description}}"
+                                          required></textarea>
                             </div>
-                            <x-form-error name="description" />
+                            <x-form-error name="description"/>
                         </div>
                     </div>
                 </div>
