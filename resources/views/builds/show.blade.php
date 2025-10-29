@@ -7,11 +7,11 @@
         Build description: {{ $build['content'] }}
     </p>
 
-    {{--    @can()--}}
-    <p class="mt-6">
-        <x-button href="{{ route('builds.edit', $build->id) }}">
-            Edit
-        </x-button>
-    </p>
-    {{--    @endcan--}}
+    @can('edit-build', $build)
+        <p class="mt-6">
+            <x-button href="{{ route('builds.edit', $build->id) }}">
+                Edit
+            </x-button>
+        </p>
+    @endcan
 </x-alayout>

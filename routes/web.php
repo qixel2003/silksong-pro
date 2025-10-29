@@ -13,7 +13,23 @@ Route::get('/', function () {
 
 Route::resource('items', ItemController::class);
 
-Route::resource('builds', BuildController::class);
+//Route::resource('builds', BuildController::class);
+
+Route::get('/builds', [BuildController::class, 'index'])->name('builds.index');
+Route::get('/builds/create', [BuildController::class, 'create'])->middleware('auth')->name('builds.create');
+Route::post('/builds', [BuildController::class, 'store'])->name('builds.store');
+Route::get('/builds/{build}', [BuildController::class, 'show'])->name('builds.show');
+Route::get('/builds/{build}/edit', [BuildController::class, 'edit'])
+    ->middleware('auth')
+    ->can('edit-build','build')
+    ->name('builds.edit');
+Route::patch('/builds/{build}', [BuildController::class, 'update'])
+    ->middleware('auth')
+    ->can('update-build','build')
+    ->name('builds.update');
+Route::delete('/builds/{build}', [BuildController::class, 'destroy'])
+    ->middleware('auth')
+    ->can('destroy-build','build')->name('builds.destroy');
 
 
 

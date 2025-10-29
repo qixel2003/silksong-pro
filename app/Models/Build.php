@@ -10,7 +10,8 @@ class Build extends Model
         'title',
         'content',
         'item_list',
-        'status'
+        'status',
+        'user_id',
     ];
 
     protected $casts = [
@@ -18,13 +19,15 @@ class Build extends Model
         'status' => 'boolean',
     ];
 
+    // Each build belongs to one user
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    // Many items can belong to a build
     public function items()
     {
         return $this->belongsToMany(Item::class, 'build_item', 'build_id', 'item_id');
-    }
-
-    public function users()
-    {
-        return $this->belongsToMany(User::class, 'build_user', 'build_id', 'user_id');
     }
 }

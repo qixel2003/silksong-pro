@@ -42,13 +42,18 @@
                                 <x-anav-link href="{{route('register')}}" :active="request()->is('register')">Register</x-anav-link>
                             @endguest
                             @auth
-                                <x-anav-link href="{{route('logout')}}" :active="request()->is('logout')">Logout</x-anav-link>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="text-white hover:bg-gray-950/50 rounded-md px-3 py-2 text-sm font-medium">
+                                            Logout
+                                        </button>
+                                    </form>
                             @endauth
                     </div>
                 </div>
                 <div class="-mr-2 flex md:hidden">
                     <!-- Mobile menu button -->
-                    <button type="button" command="--toggle" commandfor="mobile-menu" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500">
+                    <button type="button" command="--toggle" command for="mobile-menu" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500">
                         <span class="absolute -inset-0.5"></span>
                         <span class="sr-only">Open main menu</span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6 in-aria-expanded:hidden">
@@ -74,7 +79,12 @@
                     <x-anav-link href="{{route('register')}}" :active="request()->is('register')">Register</x-anav-link>
                 @endguest
                 @auth
-                    <x-anav-link href="{{route('logout')}}" :active="request()->is('logout')">Logout</x-anav-link>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="hover:bg-gray-950/50 text-white rounded-md px-3 py-2 text-sm font-medium">
+                            Logout
+                        </button>
+                    </form>
                 @endauth
 
 

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Build;
 use App\Models\Item;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class BuildController extends Controller
 {
@@ -14,7 +16,7 @@ class BuildController extends Controller
      */
     public function index()
     {
-        $builds = Build::with(['items', 'users'])
+        $builds = Build::with(['items', 'user'])
             ->latest()
             ->paginate(5);
 
@@ -28,6 +30,9 @@ class BuildController extends Controller
      */
     public function create()
     {
+        if (Auth::guest()) {
+            return redirect('/login');
+        }
         $items = Item::all();
 
         return view('builds.create', [
@@ -43,26 +48,20 @@ class BuildController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:100'],
             'content' => ['required', 'string'],
-            'item_id' => ['array'], // multiple items allowed
+            'item_id' => ['array'],
             'item_id.*' => ['exists:items,id'],
             'status' => ['boolean'],
         ]);
 
-        // Create build
         $build = Build::create([
             'title' => $validated['title'],
             'content' => $validated['content'],
             'status' => $validated['status'] ?? true,
+            'user_id' => Auth::id(), // assign ownership
         ]);
 
-        // Attach items if selected
         if (!empty($validated['item_id'])) {
             $build->items()->attach($validated['item_id']);
-        }
-
-        // Optionally attach current user to this build
-        if (Auth::check()) {
-            $build->users()->attach(Auth::id());
         }
 
         return redirect()
@@ -71,22 +70,14 @@ class BuildController extends Controller
     }
 
     /**
-     * Display the specified build.
-     */
-    public function show(Build $build)
-    {
-        $build->load(['items', 'users']);
-
-        return view('builds.show', [
-            'build' => $build,
-        ]);
-    }
-
-    /**
      * Show the form for editing the specified build.
      */
     public function edit(Build $build)
     {
+
+
+        $this->authorize('edit', $build);
+
         $items = Item::all();
 
         return view('builds.edit', [
@@ -95,11 +86,25 @@ class BuildController extends Controller
         ]);
     }
 
+
+    /**
+     * Display the specified build.
+     */
+    public function show(Build $build)
+    {
+        $build->load(['items', 'user']);
+
+        return view('builds.show', ['build' => $build]);
+    }
+
     /**
      * Update the specified build in storage.
      */
     public function update(Request $request, Build $build)
     {
+        $this->authorize('update', $build);
+
+
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:100'],
             'content' => ['required', 'string'],
@@ -127,6 +132,8 @@ class BuildController extends Controller
      */
     public function destroy(Build $build)
     {
+        $this->authorize('destroy', $build);
+
         $build->delete();
 
         return redirect()
