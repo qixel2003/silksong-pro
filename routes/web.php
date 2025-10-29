@@ -11,7 +11,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::resource('items', ItemController::class);
+Route::resource('items', ItemController::class);//->middleware(['auth', 'admin'])
+//->middleware(['auth', 'admin']);
+
 
 //Route::resource('builds', BuildController::class);
 

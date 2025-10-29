@@ -22,14 +22,27 @@ class Item extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    public function scopeFilter($query, array $filters)
+    {
+        // Search by name
+        if (!empty($filters['search'])) {
+            $query->where('name', 'like', '%' . $filters['search'] . '%');
+        }
+
+        // Filter by tag
+        if (!empty($filters['tag'])) {
+            $query->whereHas('tags', function ($q) use ($filters) {
+                $q->where('tags.id', $filters['tag']);
+            });
+        }
+
+        return $query;
+    }
 //
 //    public function users()
 //    {
 //        return $this->belongsTo(User::class);
 //    }
 //
-//    public function comments()
-//    {
-//        return $this->hasMany(Comment::class); // Use singular model name
-//    }
 }

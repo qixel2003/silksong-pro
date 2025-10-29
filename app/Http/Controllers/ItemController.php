@@ -9,16 +9,30 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
+
 class ItemController extends Controller
 {
-    public function index()
+//    public function index()
+//    {
+//        $tags = Tag::all();
+//        $items = Item::with('tags')->latest()->paginate(5);
+//        return view('items.index', [
+//            'items' =>  $items,
+//            'tags' => $tags
+//        ]);
+//    }
+
+    public function index(Request $request)
     {
         $tags = Tag::all();
-        $items = Item::with('tags')->latest()->paginate(5);
-        return view('items.index', [
-            'items' =>  $items,
-            'tags' => $tags
-        ]);
+
+        $items = Item::with('tags')
+            ->filter($request->only(['search', 'tag']))
+            ->latest()
+            ->paginate(6)
+            ->withQueryString();
+
+        return view('items.index', compact('items', 'tags'));
     }
 
     public function create()

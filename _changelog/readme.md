@@ -25,14 +25,34 @@
 
 28/10/2025
 -build crud
+-build autorisation
 
+29/10/2025
+-filter function
+-search function !MOET OOK KUNNEN COMBINEREN!
 -role autorisation
 
 
 
 TODO:
--filter function
--search function !MOET OOK KUNNEN COMBINEREN!
--role autorisation
 -deeper validation
 -admin on/off knop
+
+-na login redirect naar laatste pagina
+-admin auth voor de item pages
+-login form eigen maken
+
+
+notes:
+acc's:
+quinzelpm03@gmail.com
+admin123
+
+123@gmail.com
+users123
+
+make admin:
+php artisan tinker
+$user = App\Models\User::where('email', 'quinzelpm03@gmail.com')->first();
+$user->role = 1;
+$user->save();

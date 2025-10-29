@@ -7,12 +7,17 @@
     <p class="text-white">
         Item description: {{ $item['description'] }}
     </p>
+    <p class="text-white">Role: {{ Auth::user()->role }}</p>
 
-    {{--    @can()--}}
-    <p class="mt-6">
-        <x-button href="{{ route('items.edit', $item->id) }}">
-            Edit
-        </x-button>
-    </p>
-    {{--    @endcan--}}
+    @auth
+        @if (Auth::user()->isAdmin())
+            <p class="mt-6">
+                <x-button href="{{ route('items.edit', $item->id) }}">
+                    Edit
+                </x-button>
+            </p>
+            <p>admin</p>
+        @endif
+    @endauth
+
 </x-alayout>
