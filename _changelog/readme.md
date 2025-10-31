@@ -32,11 +32,17 @@
 -search function !MOET OOK KUNNEN COMBINEREN!
 -role autorisation
 
+30/10/2025
+-build store at create bug fixen
+-admin on/off knop
+
+
 
 
 TODO:
 -deeper validation
--admin on/off knop
+
+-begrijp de search/filter func
 
 -na login redirect naar laatste pagina
 -admin auth voor de item pages
@@ -44,7 +50,7 @@ TODO:
 
 
 notes:
-acc's:
+account's:
 quinzelpm03@gmail.com
 admin123
 

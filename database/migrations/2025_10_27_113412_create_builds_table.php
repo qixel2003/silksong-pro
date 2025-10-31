@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Builds table
         Schema::create('builds', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // build creator
@@ -21,11 +22,22 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        // Pivot table for Build <-> Item
         Schema::create('build_item', function (Blueprint $table) {
             $table->id();
             $table->foreignId('build_id')->constrained('builds')->onDelete('cascade');
             $table->foreignId('item_id')->constrained('items')->onDelete('cascade');
             $table->timestamps();
+        });
+
+        // Pivot table for Build <-> User (for collaborators, favorites, etc.)
+        Schema::create('build_user', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('build_id')->constrained('builds')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->timestamps();
+
+            $table->unique(['build_id', 'user_id']); // prevent duplicates
         });
     }
 
@@ -34,6 +46,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('build_user');
         Schema::dropIfExists('build_item');
         Schema::dropIfExists('builds');
     }

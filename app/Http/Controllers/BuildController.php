@@ -17,6 +17,7 @@ class BuildController extends Controller
     public function index()
     {
         $builds = Build::with(['items', 'user'])
+            ->where('status', true)
             ->latest()
             ->paginate(5);
 
@@ -57,7 +58,8 @@ class BuildController extends Controller
             'title' => $validated['title'],
             'content' => $validated['content'],
             'status' => $validated['status'] ?? true,
-            'user_id' => Auth::id(), // assign ownership
+            'user_id' => Auth::id(),
+            'item_list' => !empty($validated['item_id']) ? json_encode($validated['item_id']) : null,
         ]);
 
         if (!empty($validated['item_id'])) {

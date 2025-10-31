@@ -25,9 +25,14 @@
                         <div class="ml-10 flex items-baseline space-x-4">
                             <x-anav-link href="{{route('welcome')}}" :active="request()->is('/')">Welcome</x-anav-link>
                             <x-anav-link href="{{route('items.index')}}" :active="request()->is('items')">Items</x-anav-link>
-                            <x-anav-link href="{{route('items.create')}}" :active="request()->is('items.index')">Create Items</x-anav-link>
+                            <x-anav-link href="{{route('items.create')}}" :active="request()->is('items.create')">Create Items</x-anav-link>
                             <x-anav-link href="{{route('builds.index')}}" :active="request()->is('builds')">Builds</x-anav-link>
-                            <x-anav-link href="{{route('builds.create')}}" :active="request()->is('builds.index')">Create Builds</x-anav-link>
+                            <x-anav-link href="{{route('builds.create')}}" :active="request()->is('builds.create')">Create Builds</x-anav-link>
+                            @auth
+                                @if (Auth::user()->isAdmin())
+                                    <x-anav-link href="{{route('admin.index')}}" :active="request()->is('admin.index')">Admin</x-anav-link>
+                                @endif
+                            @endauth
 {{--                            <x-anav-link href="{{route('build')}}" :active="request()->is('build')">Build</x-anav-link>--}}
 {{--                            <x-anav-link href="{{route('about')}}" :active="request()->is('about')">About</x-anav-link>--}}
 {{--                            <x-anav-link href="{{route('login')}}" :active="request()->is('login')">Login</x-anav-link>--}}
@@ -73,7 +78,12 @@
                 <x-anav-link href="{{route('items.index')}}" :active="request()->is('items')">Items</x-anav-link>
                 <x-anav-link href="{{route('items.create')}}" :active="request()->is('items.index')">Create Items</x-anav-link>
                 <x-anav-link href="{{route('builds.index')}}" :active="request()->is('builds')">Builds</x-anav-link>
-                <x-anav-link href="{{route('builds.create')}}" :active="request()->is('builds.index')">Create Builds</x-anav-link>
+                <x-anav-link href="{{route('builds.create')}}" :active="request()->is('builds.create')">Create Builds</x-anav-link>
+                @auth
+                    @if (Auth::user()->isAdmin())
+                        <x-anav-link href="{{route('admin.index')}}" :active="request()->is('admin.index')">Admin</x-anav-link>
+                    @endif
+                @endauth
                 @guest
                     <x-anav-link href="{{route('login')}}" :active="request()->is('login')">Login</x-anav-link>
                     <x-anav-link href="{{route('register')}}" :active="request()->is('register')">Register</x-anav-link>

@@ -23,6 +23,12 @@ class Item extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function builds()
+    {
+        return $this->belongsToMany(Build::class, 'build_item', 'item_id', 'build_id');
+    }
+
+
     public function scopeFilter($query, array $filters)
     {
         // Search by name

@@ -7,8 +7,6 @@
     <p class="text-white">
         Item description: {{ $item['description'] }}
     </p>
-    <p class="text-white">Role: {{ Auth::user()->role }}</p>
-
     @auth
         @if (Auth::user()->isAdmin())
             <p class="mt-6">

@@ -6,6 +6,8 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Item;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,6 +35,12 @@ Route::delete('/builds/{build}', [BuildController::class, 'destroy'])
     ->middleware('auth')
     ->can('destroy-build','build')->name('builds.destroy');
 
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::patch('/admin/user/{user}/toggle', [AdminController::class, 'toggleUser'])->name('admin.user.toggle');
+    Route::patch('/admin/build/{build}/toggle', [AdminController::class, 'toggleBuild'])->name('admin.build.toggle');
+});
 
 
 Route::get('/contact', [contact::class, 'show'])->name('contact');
