@@ -3,14 +3,12 @@
         🛠️ Admin Dashboard
     </x-slot:heading>
 
-    {{-- Success Message --}}
     @if(session('success'))
         <div class="bg-green-600 text-white px-4 py-2 rounded mb-4">
             {{ session('success') }}
         </div>
     @endif
 
-    {{-- Search and Filter --}}
     <form method="GET" action="{{ route('admin.index') }}" class="mb-6 flex flex-wrap gap-2 items-center">
         <input
             type="text"
@@ -30,7 +28,6 @@
         <a href="{{ route('admin.index') }}" class="ml-2 text-sm text-gray-300 underline">Reset</a>
     </form>
 
-    {{-- Users Section --}}
     <h2 class="text-2xl text-white font-semibold mb-3">👥 Users</h2>
     <div class="overflow-x-auto mb-10">
         <table class="w-full border border-gray-700 text-white">
@@ -68,7 +65,6 @@
         <div class="mt-3">{{ $users->links() }}</div>
     </div>
 
-    {{-- Builds Section --}}
     <h2 class="text-2xl text-white font-semibold mb-3">🏗️ Builds</h2>
     <div class="overflow-x-auto">
         <table class="w-full border border-gray-700 text-white">

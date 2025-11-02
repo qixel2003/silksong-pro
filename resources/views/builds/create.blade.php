@@ -15,7 +15,7 @@
                     <x-form-field>
                         <x-form-label for="title">Title</x-form-label>
                         <div class="mt-2">
-                            <x-form-input-label name="title" id="title" autocomplete="off" placeholder="Example: Fire Mage Build" value="{{ old('title') }}" required />
+                            <x-form-input-label name="title" id="title" autocomplete="off" placeholder="Hunter Build" value="{{ old('title') }}" required />
                             <x-form-error name="title" />
                         </div>
                     </x-form-field>

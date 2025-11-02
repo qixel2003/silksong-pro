@@ -36,17 +36,15 @@
 -build store at create bug fixen
 -admin on/off knop
 
-
+01/11/2025
+-deeper validation
+-bugfixing
 
 
 TODO:
--deeper validation
 
--begrijp de search/filter func
-
--na login redirect naar laatste pagina
--admin auth voor de item pages
--login form eigen maken
+-begrijp de search/filter func en admin page
+-seach/filter func updaten en in build verwerken
 
 
 notes:
@@ -62,3 +60,8 @@ php artisan tinker
 $user = App\Models\User::where('email', 'quinzelpm03@gmail.com')->first();
 $user->role = 1;
 $user->save();
+
+make deeper vali:
+Route::get('/builds/create', [BuildController::class, 'create'])
+->middleware(['auth', 'check.login.count'])
+->name('builds.create');

@@ -16,17 +16,12 @@ class AppServiceProvider extends ServiceProvider
     protected $policies = [
         Build::class => BuildPolicy::class,
     ];
+
     public function register(): void
     {
         //
     }
 
-//    public function before(User $user, $ability)
-//    {
-//        if ($user->isAdmin()) {
-//            return true; // Admins = God
-//        }
-//    }
     /**
      * Bootstrap any application services.
      */

@@ -25,7 +25,11 @@
                         <div class="ml-10 flex items-baseline space-x-4">
                             <x-anav-link href="{{route('welcome')}}" :active="request()->is('/')">Welcome</x-anav-link>
                             <x-anav-link href="{{route('items.index')}}" :active="request()->is('items')">Items</x-anav-link>
-                            <x-anav-link href="{{route('items.create')}}" :active="request()->is('items.create')">Create Items</x-anav-link>
+                            @auth
+                                @if (Auth::user()->isAdmin())
+                                    <x-anav-link href="{{route('items.create')}}" :active="request()->is('items.create')">Create Items</x-anav-link>
+                                @endif
+                            @endauth
                             <x-anav-link href="{{route('builds.index')}}" :active="request()->is('builds')">Builds</x-anav-link>
                             <x-anav-link href="{{route('builds.create')}}" :active="request()->is('builds.create')">Create Builds</x-anav-link>
                             @auth
@@ -33,28 +37,42 @@
                                     <x-anav-link href="{{route('admin.index')}}" :active="request()->is('admin.index')">Admin</x-anav-link>
                                 @endif
                             @endauth
-{{--                            <x-anav-link href="{{route('build')}}" :active="request()->is('build')">Build</x-anav-link>--}}
-{{--                            <x-anav-link href="{{route('about')}}" :active="request()->is('about')">About</x-anav-link>--}}
-{{--                            <x-anav-link href="{{route('login')}}" :active="request()->is('login')">Login</x-anav-link>--}}
-{{--                            <x-anav-link href="{{route('register')}}" :active="request()->is('register')">Register</x-anav-link>--}}
                         </div>
                     </div>
                 </div>
                 <div class="hidden md:block">
-                    <div class="ml-4 flex items-center md:ml-6">
-                            @guest
-                                <x-anav-link href="{{route('login')}}" :active="request()->is('login')">Login</x-anav-link>
-                                <x-anav-link href="{{route('register')}}" :active="request()->is('register')">Register</x-anav-link>
-                            @endguest
-                            @auth
-                                    <form method="POST" action="{{ route('logout') }}">
-                                        @csrf
-                                        <button type="submit" class="text-white hover:bg-gray-950/50 rounded-md px-3 py-2 text-sm font-medium">
-                                            Logout
-                                        </button>
-                                    </form>
-                            @endauth
+                    <div class="ml-4 flex items-center md:ml-6 space-x-4">
+                        @auth
+                            @if (!Auth::user()->isAdmin())
+
+                            <div class="text-gray-300 text-sm">
+                                Logins:
+                                <span class="font-semibold text-white">
+                                    {{ Auth::user()->loginLogs()->count() }}
+                                </span>
+                            </div>
+
+                            @if (Auth::user()->loginLogs()->count() < 3)
+                                <div class="text-xs text-red-400 italic">
+                                    (Need {{ 3 - Auth::user()->loginLogs()->count() }} more to unlock builds)
+                                </div>
+                            @else
+                                <div class="text-xs text-green-400 italic">(Build access unlocked ✅)</div>
+                            @endif
+                            @endif
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="text-white hover:bg-gray-950/50 rounded-md px-3 py-2 text-sm font-medium">
+                                    Logout
+                                </button>
+                            </form>
+                                <x-anav-link href="{{ route('profile.edit') }}" :active="request()->is('profile.edit')">{{ Auth::user()->name }}</x-anav-link>
+                                @else
+                            <x-anav-link href="{{ route('login') }}" :active="request()->is('login')">Login</x-anav-link>
+                            <x-anav-link href="{{ route('register') }}" :active="request()->is('register')">Register</x-anav-link>
+                        @endauth
                     </div>
+
                 </div>
                 <div class="-mr-2 flex md:hidden">
                     <!-- Mobile menu button -->
@@ -76,32 +94,37 @@
             <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
                 <x-anav-link href="{{route('welcome')}}" :active="request()->is('/')">Welcome</x-anav-link>
                 <x-anav-link href="{{route('items.index')}}" :active="request()->is('items')">Items</x-anav-link>
-                <x-anav-link href="{{route('items.create')}}" :active="request()->is('items.index')">Create Items</x-anav-link>
-                <x-anav-link href="{{route('builds.index')}}" :active="request()->is('builds')">Builds</x-anav-link>
-                <x-anav-link href="{{route('builds.create')}}" :active="request()->is('builds.create')">Create Builds</x-anav-link>
                 @auth
                     @if (Auth::user()->isAdmin())
-                        <x-anav-link href="{{route('admin.index')}}" :active="request()->is('admin.index')">Admin</x-anav-link>
+                        <x-anav-link href="{{route('items.create')}}" :active="request()->is('items.create')">Create Items</x-anav-link>
                     @endif
-                @endauth
-                @guest
-                    <x-anav-link href="{{route('login')}}" :active="request()->is('login')">Login</x-anav-link>
-                    <x-anav-link href="{{route('register')}}" :active="request()->is('register')">Register</x-anav-link>
-                @endguest
+                @endauth                <x-anav-link href="{{route('builds.index')}}" :active="request()->is('builds')">Builds</x-anav-link>
+                <x-anav-link href="{{route('builds.create')}}" :active="request()->is('builds.create')">Create Builds</x-anav-link>
                 @auth
+                    <div class="text-gray-300 text-sm">
+                        Logins:
+                        <span class="font-semibold text-white">
+                            {{ Auth::user()->loginLogs()->count() }}
+                        </span>
+                    </div>
+                    @if (Auth::user()->loginLogs()->count() < 3)
+                        <div class="text-xs text-red-400 italic">
+                            (Need {{ 3 - Auth::user()->loginLogs()->count() }} more to unlock builds)
+                        </div>
+                    @else
+                        <div class="text-xs text-green-400 italic">(Build access unlocked ✅)</div>
+                    @endif
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="hover:bg-gray-950/50 text-white rounded-md px-3 py-2 text-sm font-medium">
+                        <button type="submit" class="text-white hover:bg-gray-950/50 rounded-md px-3 py-2 text-sm font-medium">
                             Logout
                         </button>
                     </form>
+                    @else
+                        <x-anav-link href="{{ route('login') }}" :active="request()->is('login')">Login</x-anav-link>
+                        <x-anav-link href="{{ route('register') }}" :active="request()->is('register')">Register</x-anav-link>
                 @endauth
 
-
-                {{--                <x-anav-link href="{{route('build')}}" :active="request()->is('build')">Build</x-anav-link>--}}
-{{--                <x-anav-link href="{{route('about')}}" :active="request()->is('about')">About</x-anav-link>--}}
-{{--                <x-anav-link href="{{route('login')}}" :active="request()->is('login')">Login</x-anav-link>--}}
-{{--                <x-anav-link href="{{route('register')}}" :active="request()->is('register')">Register</x-anav-link>--}}
             </div>
             <div class="border-t border-white/10 pt-4 pb-3">
                 <div class="flex items-center px-5">

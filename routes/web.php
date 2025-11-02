@@ -13,14 +13,20 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::resource('items', ItemController::class);//->middleware(['auth', 'admin'])
-//->middleware(['auth', 'admin']);
+// Allow everyone to see the items index
+Route::get('/items', [ItemController::class, 'index'])->name('items.index');
+
+// Restrict all other item routes to admins
+Route::resource('items', ItemController::class)
+    ->except(['index'])
+    ->middleware(['auth', 'admin']);
+
 
 
 //Route::resource('builds', BuildController::class);
 
 Route::get('/builds', [BuildController::class, 'index'])->name('builds.index');
-Route::get('/builds/create', [BuildController::class, 'create'])->middleware('auth')->name('builds.create');
+Route::get('/builds/create', [BuildController::class, 'create'])->middleware(['auth', 'check.login.count'])->name('builds.create');
 Route::post('/builds', [BuildController::class, 'store'])->name('builds.store');
 Route::get('/builds/{build}', [BuildController::class, 'show'])->name('builds.show');
 Route::get('/builds/{build}/edit', [BuildController::class, 'edit'])
