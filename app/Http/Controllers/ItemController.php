@@ -12,28 +12,28 @@ use Illuminate\Support\Facades\Gate;
 
 class ItemController extends Controller
 {
-//    public function index()
-//    {
-//        $tags = Tag::all();
-//        $items = Item::with('tags')->latest()->paginate(5);
-//        return view('items.index', [
-//            'items' =>  $items,
-//            'tags' => $tags
-//        ]);
-//    }
-
     public function index(Request $request)
     {
-        $tags = Tag::all();
+        $query = Item::with('tags');
 
-        $items = Item::with('tags')
-            ->filter($request->only(['search', 'tag']))
-            ->latest()
-            ->paginate(6)
-            ->withQueryString();
+        // 🔍 Search by name
+        if ($search = $request->input('search')) {
+            $query->where('name', 'like', "%{$search}%");
+        }
+
+        // 🏷️ Filter by multiple tags
+        if ($tagIds = $request->input('tags')) {
+            $query->whereHas('tags', function ($q) use ($tagIds) {
+                $q->whereIn('tags.id', $tagIds);
+            });
+        }
+
+        $items = $query->get();
+        $tags = \App\Models\Tag::all();
 
         return view('items.index', compact('items', 'tags'));
     }
+
 
     public function create()
     {

@@ -12,14 +12,19 @@
                class="rounded-md px-3 py-2 w-1/2 text-black">
 
         <!-- Filter by Tag -->
-        <select name="tag" class="rounded-md px-3 py-2 text-black">
-            <option value="">All Tags</option>
+        <div class="flex flex-wrap gap-2">
             @foreach ($tags as $tag)
-                <option value="{{ $tag->id }}" {{ request('tag') == $tag->id ? 'selected' : '' }}>
+                @php
+                    // check if this tag is already selected
+                    $selected = in_array($tag->id, (array) request('tags', []));
+                @endphp
+                <button type="submit" name="tags[]" value="{{ $tag->id }}"
+                        class="px-3 py-1 rounded-full text-sm font-medium
+                           {{ $selected ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-800 hover:bg-gray-300' }}">
                     {{ $tag->name }}
-                </option>
+                </button>
             @endforeach
-        </select>
+        </div>
 
         <button type="submit"
                 class="rounded-md bg-indigo-600 px-4 py-2 text-white font-semibold hover:bg-indigo-500">
